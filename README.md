@@ -16,13 +16,14 @@ Below you find a list of benchmark functionalities implemented.
 ```
 
 
-- [Listing available datasets?](https://github.com/AKSW/KBox#why-use-kbox)
+- [Listing available datasets?](https://github.com/AKSW/orbit/blob/master/README.md#listing-available-datasets)
 - [Listing available measures?](https://github.com/AKSW/KBox#what-is-possible-to-do-with-it)
 - [Evaluating](https://github.com/AKSW/KBox#how-can-i-use-kbox)
 - [Outputing dataset(s) content(s)](https://github.com/AKSW/KBox#how-can-i-execute-kbox-in-command-line)
 
 ### Listing available datasets
 
+Orbit benchmark framework already comes with 9 embedded QALD datasets.
 
 ```
 java -jar orbit.benchmark.jar -datasets
@@ -38,6 +39,8 @@ qald-8-test-multilingual
 ```
 
 ### Listing available measures
+
+There are totally 7 implemented measures while 2 are extensions (e.g. P@10 and P@100 are PrecisionAt instantiations).
 
 ```
 java -jar orbit.benchmark.jar -measures
