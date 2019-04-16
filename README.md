@@ -26,6 +26,15 @@ Below you find a list of benchmark functionalities implemented.
 
 ```
 java -jar orbit.benchmark.jar -datasets
+qald-5-test-multilingual
+qald-7-test-multilingual
+qald-3-test-multilingual
+qald-6-test-multilingual
+qald-9-test-multilingual
+qald-4-test-multilingual
+qald-2-test-multilingual
+qald-1-test-multilingual
+qald-8-test-multilingual
 ```
 
 ### Listing available measures
