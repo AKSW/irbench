@@ -32,6 +32,13 @@ java -jar orbit.benchmark.jar -datasets
 
 ```
 java -jar orbit.benchmark.jar -measures
+f-score
+P@100
+precision
+recall
+P@10
+MAP@10
+MAP@100
 ```
 
 ### Evaluating
