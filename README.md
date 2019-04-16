@@ -21,7 +21,7 @@ java -jar orbit.benchmark.jar [option]:
 
 
 - [Listing available datasets?](https://github.com/AKSW/orbit/blob/master/README.md#listing-available-datasets)
-- [Listing available measures?](https://github.com/AKSW/KBox#what-is-possible-to-do-with-it)
+- [Listing available measures?](https://github.com/AKSW/orbit/blob/master/README.md#listing-available-measures)
 - [Evaluating](https://github.com/AKSW/KBox#how-can-i-use-kbox)
 - [Outputing dataset(s) content(s)](https://github.com/AKSW/KBox#how-can-i-execute-kbox-in-command-line)
 
