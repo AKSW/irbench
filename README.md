@@ -36,6 +36,16 @@ java -jar orbit.benchmark.jar -measures
 
 ### Evaluating
 
+```
+-evaluate "qald-8-test-multilingual" "qald-8-test-multilingual.qald.json" "MAP@10"
+|	Q-ID	|	MAP@10	|
+|	22	|	1.0	|
+...
+|	21	|	1.0	|
+|	43	|	1.0	|
+|	AVG	|	1.0	|
+
+```
 
 ### Outputing dataset(s) content(s)
 
