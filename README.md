@@ -12,7 +12,11 @@ It also have 9 emmbeded QALD test datasets.
 Below you find a list of benchmark functionalities implemented.
 
 ```
-
+java -jar orbit.benchmark.jar [option]:
+-evaluate	<benchmarkAnswerFile|datasetID>	<systemAnswerFile>	<"measure1","measure2">	[-latex|-json]
+-datasets	List available datasets for evaluation.
+-measures	List available measures.
+-print	["datasetFile1","datasetFile2","datasetID1"...]	[-format <format>]
 ```
 
 
