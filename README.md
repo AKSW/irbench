@@ -66,4 +66,9 @@ java -jar -evaluate "qald-8-test-multilingual" "qald-8-test-multilingual.qald.js
 
 ```
 java -jar orbit.benchmark.jar -print
+...
+{"datasetId":"qald-8-test-multilingual","question":"What is Donald Trump's main business?", "keywords":"Donald Trump's,  business", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> PREFIX dbr: <http:\/\/dbpedia.org\/resource\/> SELECT ?owner WHERE { ?owner dbo:owner dbr:Donald_Trump }" , "lang":"en"}
+{"datasetId":"qald-8-test-multilingual","question":"What is the last work of Dan Brown?", "keywords":"last work,  Dan Brown", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> PREFIX dbp: <http:\/\/dbpedia.org\/property\/> PREFIX dbr: <http:\/\/dbpedia.org\/resource\/> SELECT ?book ?date WHERE { ?book dbo:author dbr:Dan_Brown . ?book dbp:releaseDate|dbo:publicationDate ?date } ORDER BY DESC(?date)" , "lang":"en"}
+{"datasetId":"qald-8-test-multilingual","question":"What other books have been written by the author of The Fault in Our Stars?", "keywords":"books,  author,  The Fault in Our Stars", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> SELECT ?books WHERE { ?books dbo:author <http:\/\/dbpedia.org\/resource\/John_Green_(author)> }" , "lang":"en"}
+{"datasetId":"qald-8-test-multilingual","question":"When was the last episode of the TV series Friends aired?", "keywords":"last episode,  Friends Tv show", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> PREFIX dbr: <http:\/\/dbpedia.org\/resource\/> SELECT ?date WHERE { dbr:Friends dbo:completionDate ?date }" , "lang":"en"}
 ```
