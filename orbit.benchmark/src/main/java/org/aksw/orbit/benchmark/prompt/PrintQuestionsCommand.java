@@ -1,5 +1,7 @@
 package org.aksw.orbit.benchmark.prompt;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +12,8 @@ import org.aksw.orbit.benchmark.qald.schema.Keywords;
 import org.aksw.orbit.benchmark.qald.schema.Question;
 import org.apache.commons.text.StringEscapeUtils;
 
-public class PrintDatasetCommand extends AbstractSimpleMapCommandOption implements DatasetVisitor {
-
+public class PrintQuestionsCommand extends AbstractSimpleMapCommandOption implements DatasetVisitor {
+	
 	private Map<String,Dataset> datasets;
 	private String format = "{\"datasetId\":\"?datasetId\",\"question\":\"?question\", \"keywords\":\"?keywords\", "
 			+ "\"sparql\":\"?sparql\" , \"lang\":\"?lang\"}";
@@ -19,7 +21,7 @@ public class PrintDatasetCommand extends AbstractSimpleMapCommandOption implemen
 	private String datasetID = null;	
 	private String lang = null;
 	
-	public PrintDatasetCommand(String option, Map<String,Dataset> datasets) {
+	public PrintQuestionsCommand(String option, Map<String,Dataset> datasets) {
 		super(option);
 		this.datasets = datasets;
 	}
@@ -33,8 +35,12 @@ public class PrintDatasetCommand extends AbstractSimpleMapCommandOption implemen
 				format = userFormat; 
 			}
 		}
-		
-		for(String datasetID : datasets.keySet()) {
+		Collection<String> selectedDatasets = datasets.keySet();
+		String[] selectedDatasetsOption = commands.get(getOption());
+		if(selectedDatasetsOption != null) {
+			selectedDatasets = Arrays.asList(selectedDatasetsOption);
+		}
+		for(String datasetID : selectedDatasets) {
 			Dataset dataset = datasets.get(datasetID);
 			dataset.accept(this);
 		}

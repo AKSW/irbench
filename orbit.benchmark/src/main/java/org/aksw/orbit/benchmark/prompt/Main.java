@@ -43,7 +43,7 @@ public class Main {
 		
 		CommandOption measuresOption = new PrintListCommand("-measures", measures.keySet());
 		CommandOption datasetsOption = new PrintListCommand("-datasets", datasets.keySet());
-		CommandOption printOption = new PrintDatasetCommand("-print", datasets);
+		CommandOption printOption = new PrintQuestionsCommand("-questions", datasets);
 		CommandOption evaluateOption = new EvaluateCommand("-evaluate", measures, datasets);
 		CommandFactory factory = new CommandFactory(measuresOption, 
 				datasetsOption, 
@@ -69,6 +69,6 @@ public class Main {
 		System.out.println("-evaluate\t<benchmarkAnswerFile|datasetID>\t<systemAnswerFile>\t<\"measure1\",\"measure2\">\t[-latex|-json]");
 		System.out.println("-datasets\tList available datasets for evaluation.");
 		System.out.println("-measures\tList available measures.");
-		System.out.println("-print\t[\"datasetFile1\",\"datasetFile2\",\"datasetID1\"...]\t[-format <format>]");
+		System.out.println("-questions\t[\"datasetFile1\",\"datasetFile2\",\"datasetID1\"...]\t[-format <format>]");
 	}
 }
