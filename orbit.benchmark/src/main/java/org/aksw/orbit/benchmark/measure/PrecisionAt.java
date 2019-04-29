@@ -12,12 +12,12 @@ public class PrecisionAt extends AbstractMeasureK {
 	@Override
 	public double evaluate(List<String> benchmarkAnswerList, List<String> systemAnswerList, int k) {
 		double precision = 0.0;
-		int lowerBenchK = Math.min(benchmarkAnswerList.size(), k); // the lower value between the benchmark answer size or k
+		int lowerBenchK = Math.min(benchmarkAnswerList.size(), k); // the lower value between the benchmark answer size and k
 		int lowerSysK = Math.min(systemAnswerList.size(), k);
-		List<String> benchmarkAnswerSubList = new ArrayList<String>(benchmarkAnswerList.subList(0, lowerBenchK));
-		List<String> systemAnswerSubList = systemAnswerList.subList(0, lowerSysK);
-		benchmarkAnswerSubList.retainAll(systemAnswerSubList);
-	    double intersectionSize = benchmarkAnswerSubList.size();
+		List<String> benchmarkAnswerSubList = new ArrayList<String>(benchmarkAnswerList);
+		List<String> systemAnswerSubList = new ArrayList<String>(systemAnswerList.subList(0, lowerSysK));
+		systemAnswerSubList.retainAll(benchmarkAnswerSubList);
+	    double intersectionSize = systemAnswerSubList.size();
 	    precision = intersectionSize / lowerBenchK;
 	    return precision;
 	}

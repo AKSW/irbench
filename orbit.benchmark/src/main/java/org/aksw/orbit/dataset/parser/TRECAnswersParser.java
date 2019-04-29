@@ -43,11 +43,11 @@ public class TRECAnswersParser extends AbstractDatasetParser {
 	
 	private static Map<String, List<String>> getAnswers(InputStream is) {
 		Map<String, List<String>> questionMap = new HashMap<String, List<String>>();
-		try (InputStreamReader reader = new InputStreamReader(is)){			
+		try (InputStreamReader reader = new InputStreamReader(is)){
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
-				String[] entries = line.split("\t");
+				String[] entries = line.split("\\s+");
 				String resource = entries[2].replace("<", "").
 						replace(">", "").
 						replace("dbpedia:", "http://dbpedia.org/resource/");

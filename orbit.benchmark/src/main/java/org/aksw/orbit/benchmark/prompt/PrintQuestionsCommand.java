@@ -1,5 +1,6 @@
 package org.aksw.orbit.benchmark.prompt;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,15 +11,19 @@ import org.aksw.orbit.benchmark.qald.schema.Dataset;
 import org.aksw.orbit.benchmark.qald.schema.DatasetVisitor;
 import org.aksw.orbit.benchmark.qald.schema.Keywords;
 import org.aksw.orbit.benchmark.qald.schema.Question;
+import org.aksw.orbit.utils.DatasetUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
-public class PrintQuestionsCommand extends AbstractSimpleMapCommandOption implements DatasetVisitor {
+public class PrintQuestionsCommand extends AbstractSimpleMapCommand implements DatasetVisitor {
 	
 	private Map<String,Dataset> datasets;
 	private String format = "{\"datasetId\":\"?datasetId\",\"question\":\"?question\", \"keywords\":\"?keywords\", "
 			+ "\"sparql\":\"?sparql\" , \"lang\":\"?lang\"}";
 	
-	private String datasetID = null;	
+	private final static String FORMAT_PARAM = "-format";
+	private final static String DATASET_SPLIT_PRAGMA = ",";
+	
+	private String datasetID = null;
 	private String lang = null;
 	
 	public PrintQuestionsCommand(String option, Map<String,Dataset> datasets) {
@@ -28,7 +33,7 @@ public class PrintQuestionsCommand extends AbstractSimpleMapCommandOption implem
 
 	@Override
 	public void process(Map<String, String[]> commands) throws Exception {
-		String[] formatParams = commands.get("-format");
+		String[] formatParams = commands.get(FORMAT_PARAM);
 		if(formatParams != null) {
 			String userFormat = formatParams[0];
 			if(userFormat != null) {
@@ -37,12 +42,21 @@ public class PrintQuestionsCommand extends AbstractSimpleMapCommandOption implem
 		}
 		Collection<String> selectedDatasets = datasets.keySet();
 		String[] selectedDatasetsOption = commands.get(getOption());
-		if(selectedDatasetsOption != null) {
+		if(selectedDatasetsOption.length > 0) {
+			selectedDatasetsOption = selectedDatasetsOption[0].split(DATASET_SPLIT_PRAGMA);
 			selectedDatasets = Arrays.asList(selectedDatasetsOption);
 		}
 		for(String datasetID : selectedDatasets) {
 			Dataset dataset = datasets.get(datasetID);
-			dataset.accept(this);
+			if(dataset == null) {
+				File datasetFile = new File(datasetID);
+				if(datasetFile.exists()) {
+					dataset = DatasetUtils.getDataset(datasetFile.toURI().toURL());
+				}
+			}
+			if(dataset != null) {
+				dataset.accept(this);
+			}
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class MapCommandOption implements CommandOption {
+public abstract class MapCommand implements Command {
 	public final static String COMMAND_PRAGMA = "-";
 	public final static String SUB_COMMAND_PRAGMA = "/";
 

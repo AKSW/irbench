@@ -2,11 +2,11 @@ package org.aksw.orbit.benchmark.prompt;
 
 import java.util.Map;
 
-public abstract class AbstractSimpleMapCommandOption extends MapCommandOption {
+public abstract class AbstractSimpleMapCommand extends MapCommand {
 
 	private String option;
 	
-	public AbstractSimpleMapCommandOption(String option) {
+	public AbstractSimpleMapCommand(String option) {
 		this.option = option;
 	}
 

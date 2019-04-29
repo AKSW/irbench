@@ -12,7 +12,7 @@ import org.aksw.orbit.benchmark.qald.schema.Dataset;
 import org.aksw.orbit.dataset.parser.DatasetParser;
 import org.aksw.orbit.dataset.parser.DatasetParserFactory;
 
-public class EvaluateCommand extends AbstractSimpleMapCommandOption {
+public class EvaluateCommand extends AbstractSimpleMapCommand {
 	
 	public final static String MEASURE_COMMAND_SEPARATOR = ",";
 	public final static String LATEX_COMMAND = "-latex";
@@ -41,6 +41,11 @@ public class EvaluateCommand extends AbstractSimpleMapCommandOption {
 		} else {
 			File benchFilePath = new File(evalParams[0]);
 			DatasetParser parser =  parserFactory.getDatasetParser(benchFilePath);
+			if(parser == null) {
+				System.out.println("Dataset format cannot be recognized, check if the file contain the right ending.");
+				System.out.println("Supported formats \".a.trec\", \".qald.xml\", and \".qald.json\"");
+				return;
+			}
 			benchDataset = parser.parse(benchFilePath);
 		}
 		File systemFilePath = new File(evalParams[1]);

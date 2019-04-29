@@ -1,6 +1,6 @@
 package org.aksw.orbit.benchmark.prompt;
 
-public interface CommandOption {
+public interface Command {
 	
 	public abstract boolean canProcess(String[] args);
 	

@@ -27,10 +27,10 @@ public class TRECQueriesParser extends AbstractDatasetParser {
 			Question q = new Question();
 			q.setId(entry.getKey());
 			q.setAnswertype("resource");
-			Keywords keywords = new Keywords();
-			keywords.setLang("en");
-			keywords.setValue(entry.getValue());
-			q.getKeywords().add(keywords);
+			org.aksw.orbit.benchmark.qald.schema.String strings = new org.aksw.orbit.benchmark.qald.schema.String();
+			strings.setLang("en");
+			strings.setValue(entry.getValue());
+			q.getString().add(strings);
 			datasetQuestions.add(q);
 		}
 		

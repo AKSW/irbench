@@ -6,10 +6,10 @@ import java.net.URL;
 
 public class DatasetParserFactory {
 	
-	private final static String TREC_ANSWERS = "a.trec";
-	private final static String TREC_QUESTIONS = "q.trec";
-	private final static String QALD_XML = "qald.xml";
-	private final static String QALD_JSON = "qald.json";
+	private final static String TREC_ANSWERS = ".a.trec";
+	private final static String TREC_QUESTIONS = ".q.trec";
+	private final static String QALD_XML = ".qald.xml";
+	private final static String QALD_JSON = ".qald.json";
 	
 	
 	public DatasetParser getDatasetParser(URL fileURL) {

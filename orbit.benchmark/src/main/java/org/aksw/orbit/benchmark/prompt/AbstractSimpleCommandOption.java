@@ -1,6 +1,6 @@
 package org.aksw.orbit.benchmark.prompt;
 
-public abstract class AbstractSimpleCommandOption implements CommandOption {
+public abstract class AbstractSimpleCommandOption implements Command {
 
 	private String option;
 	

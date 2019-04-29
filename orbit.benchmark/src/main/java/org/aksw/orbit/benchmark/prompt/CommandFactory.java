@@ -4,17 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommandFactory {
-	List<CommandOption> options;
-	public CommandFactory(List<CommandOption> options) {
+	List<Command> options;
+	public CommandFactory(List<Command> options) {
 		this.options = options;
 	}
 	
-	public CommandFactory(CommandOption... options) {
+	public CommandFactory(Command... options) {
 		this.options = Arrays.asList(options);
 	}
 	
-	public CommandOption getCommandOption(String args[]) {
-		for(CommandOption command : options) {
+	public Command getCommand(String args[]) {
+		for(Command command : options) {
 			if(command.canProcess(args)) {
 				return command;
 			}

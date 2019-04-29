@@ -12,26 +12,21 @@ public class MAP extends PrecisionAt {
 	@Override
 	public double evaluate(List<String> benchmarkAnswerList, List<String> systemAnswerList, int k) {
 		double map = 0;
-		int minK = Math.min(benchmarkAnswerList.size(), k);
-		int systemMinK = Math.min(systemAnswerList.size(), minK);
-		List<String> benchmarkAnswerSubList = new ArrayList<>(benchmarkAnswerList.subList(0, minK));
-		List<String> systemAnswerSubList = systemAnswerList.subList(0, systemMinK);
-
-		for(int i = 0; i < minK; i++) {
+		int systemMinK = Math.min(systemAnswerList.size(), k);
+		List<String> benchmarkAnswerSubList = new ArrayList<String>(benchmarkAnswerList);
+		List<String> systemAnswerSubList = new ArrayList<String>(systemAnswerList.subList(0, systemMinK));
+		for(int i = 0; i < systemMinK; i++) {
 			String answerAtI = null;
-			if(i < systemAnswerSubList.size()) {
-				answerAtI = systemAnswerSubList.get(i);
-			}
+			answerAtI = systemAnswerSubList.get(i);
 			if(benchmarkAnswerSubList.contains(answerAtI)) {
 				map += super.evaluate(benchmarkAnswerSubList, systemAnswerSubList, i+1);
 			}
 		}
-		if(map == 0) {
+		systemAnswerList.retainAll(benchmarkAnswerSubList);
+		int intersectionSize = systemAnswerList.size();
+		if(intersectionSize == 0) {
 			return 0;
 		}
-
-		benchmarkAnswerSubList.retainAll(systemAnswerSubList);
-		int intersectionSize = benchmarkAnswerSubList.size();
 		return map / intersectionSize;
 	}
 }

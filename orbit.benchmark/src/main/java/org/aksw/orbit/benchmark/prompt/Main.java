@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.aksw.orbit.benchmark.DBpediaEntityQALD2Dataset;
 import org.aksw.orbit.benchmark.measure.FMeasure;
 import org.aksw.orbit.benchmark.measure.MAP;
 import org.aksw.orbit.benchmark.measure.Measure;
@@ -11,8 +12,7 @@ import org.aksw.orbit.benchmark.measure.Precision;
 import org.aksw.orbit.benchmark.measure.PrecisionAt;
 import org.aksw.orbit.benchmark.measure.Recall;
 import org.aksw.orbit.benchmark.qald.schema.Dataset;
-import org.aksw.orbit.dataset.parser.DatasetParser;
-import org.aksw.orbit.dataset.parser.DatasetParserFactory;
+import org.aksw.orbit.utils.DatasetUtils;
 
 public class Main {	
 	
@@ -28,7 +28,8 @@ public class Main {
 			measures.put("P@100", new PrecisionAt(100));
 		}
 		
-		Map<String, Dataset> datasets = new HashMap<>();
+		String qald2DatasetId = "QALD2-DBpedia39-Entity-v1";
+		Map<String, Dataset> datasets = new HashMap<String, Dataset>();
 		{
 			addDataset(datasets, Main.class.getResource("/org/aksw/orbit/benchmark/qald-1_multilingual_test_answers.qald.xml"));
 			addDataset(datasets, Main.class.getResource("/org/aksw/orbit/benchmark/qald-2_multilingual_test_answers.qald.xml"));
@@ -39,17 +40,35 @@ public class Main {
 			addDataset(datasets, Main.class.getResource("/org/aksw/orbit/benchmark/qald-7-test-multilingual.qald.json"));
 			addDataset(datasets, Main.class.getResource("/org/aksw/orbit/benchmark/qald-8-test-multilingual.qald.json"));
 			addDataset(datasets, Main.class.getResource("/org/aksw/orbit/benchmark/qald-9-test-multilingual.qald.json"));
+			addDataset(datasets, "DBpedia39-Entity-v1", Main.class.getResource("/org/aksw/orbit/benchmark/qrels-v1_39.a.trec"));
+			Dataset dataset = DatasetUtils.getDataset(Main.class.getResource("/org/aksw/orbit/benchmark/qrels-v1_39.a.trec"));
+			Dataset dbpediaEntityQALD2Dataset = new DBpediaEntityQALD2Dataset(dataset);		
+			dbpediaEntityQALD2Dataset.setId(qald2DatasetId);
+			datasets.put(qald2DatasetId, dbpediaEntityQALD2Dataset);			
+			addDataset(datasets, "DBpedia2015-Entity-v1", Main.class.getResource("/org/aksw/orbit/benchmark/qrels-v1_2015_10.a.trec"));
 		}
 		
-		CommandOption measuresOption = new PrintListCommand("-measures", measures.keySet());
-		CommandOption datasetsOption = new PrintListCommand("-datasets", datasets.keySet());
-		CommandOption printOption = new PrintQuestionsCommand("-questions", datasets);
-		CommandOption evaluateOption = new EvaluateCommand("-evaluate", measures, datasets);
+		
+		Map<String, Dataset> dataq = new HashMap<String, Dataset>();
+		{
+			dataq.putAll(datasets);
+			addDataset(dataq, "DBpedia39-Entity-v1", Main.class.getResource("/org/aksw/orbit/benchmark/questions.q.trec"));
+			addDataset(dataq, "DBpedia2015-Entity-v1", Main.class.getResource("/org/aksw/orbit/benchmark/questions.q.trec"));
+			Dataset dataset = DatasetUtils.getDataset(Main.class.getResource("/org/aksw/orbit/benchmark/questions.q.trec"));
+			Dataset dbpediaEntityQALD2Dataset = new DBpediaEntityQALD2Dataset(dataset);
+			dbpediaEntityQALD2Dataset.setId(qald2DatasetId);
+			dataq.put(qald2DatasetId, dbpediaEntityQALD2Dataset);
+		}
+		
+		Command measuresOption = new PrintListCommand("-measures", measures.keySet());
+		Command datasetsOption = new PrintListCommand("-datasets", datasets.keySet());
+		Command printOption = new PrintQuestionsCommand("-questions", dataq);
+		Command evaluateOption = new EvaluateCommand("-evaluate", measures, datasets);
 		CommandFactory factory = new CommandFactory(measuresOption, 
 				datasetsOption, 
 				printOption, 
 				evaluateOption);
-		CommandOption option = factory.getCommandOption(args);
+		Command option = factory.getCommand(args);
 		if(option == null) {
 			help();
 		} else {
@@ -58,10 +77,14 @@ public class Main {
 	}
 	
 	private static void addDataset(Map<String, Dataset> datasets, URL datasetURL) throws Exception {
-		DatasetParserFactory paserFactory = new DatasetParserFactory();
-		DatasetParser parser = paserFactory.getDatasetParser(datasetURL);
-		Dataset dataset = parser.parse(datasetURL);
+		Dataset dataset = DatasetUtils.getDataset(datasetURL);
 		datasets.put(dataset.getId(), dataset);
+	}
+	
+	private static void addDataset(Map<String, Dataset> datasets, String id, URL datasetURL) throws Exception {
+		Dataset dataset = DatasetUtils.getDataset(datasetURL);
+		dataset.setId(id);
+		datasets.put(id, dataset);
 	}
 
 	public static void help() {
