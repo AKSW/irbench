@@ -27,23 +27,24 @@ public class DBpediaEntityQALD2EvaluatorTest {
 		 measures.put("MAP@10", new MAP(10));
 		 Evaluator evaluator = new DBpediaEntityQALD2Evaluator(fsdmAnswer, measures);
 		 benchmarkDataset.accept(evaluator);
-		 Assert.assertEquals(140,evaluator.getEvaluation().get("MAP@10").size());
-		 Assert.assertEquals(1.,evaluator.getEvaluation().get("MAP@10").getAVG(),0);
+		 QuestionScoreMap scoreMap = evaluator.getEvaluation().get("MAP@10");
+		 Assert.assertEquals(140,scoreMap.size());
+		 Assert.assertEquals(1.,scoreMap.getAVG(),0);
 	}
 	
 	@Test
 	public void evaluationTest2() throws Exception {
 		URL benchmarkAnswers = PrecisionAt.class.getResource("qrels-v2.a.trec");
-		 URL systemAnswers = PrecisionAt.class.getResource("fsdm-elr_v2.run.a.trec");		 
-		 DatasetParserFactory factory = new DatasetParserFactory();
-		 DatasetParser parser = factory.getDatasetParser(benchmarkAnswers);
-		 Dataset benchmarkDataset = parser.parse(benchmarkAnswers);
-		 Dataset fsdmAnswer = parser.parse(systemAnswers);
-		 Map<String, Measure> measures = new HashMap<String, Measure>();
-		 measures.put("MAP@10", new MAP(10));
-		 Evaluator evaluator = new DBpediaEntityQALD2Evaluator(fsdmAnswer, measures);
-		 benchmarkDataset.accept(evaluator);
-		 Assert.assertEquals(140,evaluator.getEvaluation().get("MAP@10").size());
-		 Assert.assertEquals(0.07,evaluator.getEvaluation().get("MAP@10").getAVG(),0.002);
+		URL systemAnswers = PrecisionAt.class.getResource("fsdm-elr_v2.run.a.trec");		 
+		DatasetParserFactory factory = new DatasetParserFactory();
+		DatasetParser parser = factory.getDatasetParser(benchmarkAnswers);
+		Dataset benchmarkDataset = parser.parse(benchmarkAnswers);
+		Dataset fsdmAnswer = parser.parse(systemAnswers);
+		Map<String, Measure> measures = new HashMap<String, Measure>();
+		measures.put("MAP@10", new MAP(10));
+		Evaluator evaluator = new DBpediaEntityQALD2Evaluator(fsdmAnswer, measures);
+		benchmarkDataset.accept(evaluator);
+		Assert.assertEquals(140, evaluator.getEvaluation().get("MAP@10").size());
+		Assert.assertEquals(0.07, evaluator.getEvaluation().get("MAP@10").getAVG(),0.002);
 	}
 }
