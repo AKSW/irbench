@@ -48,7 +48,6 @@ public class Main {
 			addDataset(datasets, "DBpedia2015-Entity-v1", Main.class.getResource("/org/aksw/orbit/benchmark/qrels-v1_2015_10.a.trec"));
 		}
 		
-		
 		Map<String, Dataset> dataq = new HashMap<String, Dataset>();
 		{
 			dataq.putAll(datasets);
