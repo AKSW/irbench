@@ -1,4 +1,4 @@
-# orbit
+# irbench
 Orbit (Open Information Retrieval Framework) is a general framework for testing, benchmarking and developing IR systems.
 
 
