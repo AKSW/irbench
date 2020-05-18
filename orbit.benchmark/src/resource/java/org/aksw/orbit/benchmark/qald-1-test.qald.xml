@@ -1,11 +1,10 @@
 <?xml version="1.0" ?>
-<dataset id="qald-1-test-multilingual">
+<dataset id="qald-1-test">
 <question id="23">
 <string>
 Which presidents of the United States had more than three children?
 </string>
-<query>
-PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+<query>PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 PREFIX onto: &lt;http://dbpedia.org/ontology/&gt;
 PREFIX yago: &lt;http://dbpedia.org/class/yago/&gt;
@@ -15,8 +14,7 @@ WHERE
 	?uri rdf:type yago:PresidentsOfTheUnitedStates .
         ?uri onto:child ?child .
         OPTIONAL {?uri rdfs:label ?string. FILTER (lang(?string) = 'en') }
-} HAVING (count(?child) &gt; 3)
-</query>
+} HAVING (count(?child) &gt; 3)</query>
 <answers>
 <answer>
 <uri>
@@ -172,8 +170,7 @@ East River
 <string>
 How many monarchical countries are there in Europe?
 </string>
-<query>
-PREFIX onto: &lt;http://dbpedia.org/ontology/&gt;
+<query>PREFIX onto: &lt;http://dbpedia.org/ontology/&gt;
 PREFIX yago: &lt;http://dbpedia.org/class/yago/&gt;
 PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 SELECT COUNT(DISTINCT ?uri)
@@ -182,8 +179,7 @@ WHERE
 	?uri rdf:type yago:EuropeanCountries .
         ?uri onto:governmentType ?govern .
         FILTER regex(?govern,'monarchy') .
-}
-</query>
+}</query>
 <answers>
 <answer>
 <number>

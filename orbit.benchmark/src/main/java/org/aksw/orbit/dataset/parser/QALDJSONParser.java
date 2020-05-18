@@ -9,12 +9,15 @@ import org.aksw.orbit.benchmark.qald.schema.Answers;
 import org.aksw.orbit.benchmark.qald.schema.Dataset;
 import org.aksw.orbit.benchmark.qald.schema.Keywords;
 import org.aksw.orbit.benchmark.qald.schema.Question;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class QALDJSONParser extends AbstractDatasetParser {
+	
+	private final static Logger logger = Logger.getLogger(QALDJSONParser.class);
 
 	@Override
 	public Dataset parse(InputStream is) throws JSONException {
@@ -54,13 +57,21 @@ public class QALDJSONParser extends AbstractDatasetParser {
 				JSONObject langQuestion = langQuestions.getJSONObject(j);
 				String language = langQuestion.getString(QALDJSON.LANGUAGE_PARAM);
 				schemaLangQuestion.setLang(language);
-				String string = langQuestion.getString(QALDJSON.STRING_PARAM);
-				schemaLangQuestion.setValue(string);
+				if(langQuestion.has(QALDJSON.STRING_PARAM)) {
+					String string = langQuestion.getString(QALDJSON.STRING_PARAM);
+					schemaLangQuestion.setValue(string);
+				} else {
+					logger.warn(datasetID + ": There is no 'string' tag for question:" + id + " lang:" + language);
+				}
 				strings.add(schemaLangQuestion);
-				
 				Keywords schemaLangKeywords = new Keywords();
-				String keywords = langQuestion.getString(QALDJSON.KEYWORDS_PARAM);
-				schemaLangKeywords.setValue(keywords);
+				if(langQuestion.has(QALDJSON.KEYWORDS_PARAM)) {
+					String keywords = langQuestion.getString(QALDJSON.KEYWORDS_PARAM);
+					schemaLangKeywords.setValue(keywords);
+				} else {
+					logger.warn(datasetID + ": There is no 'keywords' tag for question:" + id + " lang:" + language);
+				}
+				
 				schemaLangKeywords.setLang(language);
 				keywordsList.add(schemaLangKeywords);
 			}

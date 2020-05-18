@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class PrintListCommand extends AbstractSimpleCommandOption {
 	
-	List<String> list;
+	private List<String> list;
 
 	public PrintListCommand(String command, List<String> list) {
 		super(command);

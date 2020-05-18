@@ -59,12 +59,10 @@ public class EvaluateCommand extends AbstractSimpleMapCommand {
 		Dataset systemDataset = parser.parse(systemFilePath);
 		Evaluator evaluator = new Evaluator(systemDataset, selectedMeasures);
 		benchDataset.accept(evaluator);
-		
 		if(commands.containsKey(LATEX_COMMAND)) {
 			System.out.println(evaluator.getEvaluation(new LatexEvaluationEncoder()));
 		} else {
 			System.out.println(evaluator.getEvaluation(new TabularEvaluationEncoder()));
 		}
 	}
-
 }

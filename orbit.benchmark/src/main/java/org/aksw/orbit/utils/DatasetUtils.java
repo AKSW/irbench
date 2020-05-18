@@ -1,7 +1,14 @@
 package org.aksw.orbit.utils;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.aksw.orbit.benchmark.qald.schema.Dataset;
 import org.aksw.orbit.benchmark.qald.schema.Question;
@@ -27,5 +34,11 @@ public class DatasetUtils {
 		DatasetParser parser = paserFactory.getDatasetParser(datasetURL);
 		Dataset dataset = parser.parse(datasetURL);
 		return dataset;
+	}
+	
+	public static void serialize(Dataset dataset, OutputStream out) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(Dataset.class);
+		Marshaller m = context.createMarshaller();
+		m.marshal(dataset, out);
 	}
 }
