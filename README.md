@@ -16,9 +16,8 @@ java -jar orbit.benchmark.jar [option]:
 -evaluate	<benchmarkAnswerFile|datasetID>	<systemAnswerFile>	<"measure1","measure2">	[-latex|-json]
 -datasets	List available datasets for evaluation.
 -measures	List available measures.
--print	["datasetFile1","datasetFile2","datasetID1"...]	[-format <format>]
+-questions ["datasetFile1","datasetFile2","datasetID1"...] [-format <format>] [-lang <lang>]
 ```
-
 
 - [Listing available datasets?](https://github.com/AKSW/orbit/blob/master/README.md#listing-available-datasets)
 - [Listing available measures?](https://github.com/AKSW/orbit/blob/master/README.md#listing-available-measures)
@@ -40,6 +39,7 @@ qald-4-test-multilingual
 qald-2-test-multilingual
 qald-1-test-multilingual
 qald-8-test-multilingual
+qald-9-test-multilingual
 ```
 
 ### Listing available measures
@@ -88,7 +88,7 @@ java -jar -evaluate "qald-8-test-multilingual" "qald-8-test-multilingual.qald.js
 ### Outputing dataset(s) content(s)
 
 ```
-java -jar orbit.benchmark.jar -print
+java -jar orbit.benchmark.jar -questions
 ...
 {"datasetId":"qald-8-test-multilingual","question":"What is Donald Trump's main business?", "keywords":"Donald Trump's,  business", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> PREFIX dbr: <http:\/\/dbpedia.org\/resource\/> SELECT ?owner WHERE { ?owner dbo:owner dbr:Donald_Trump }" , "lang":"en"}
 {"datasetId":"qald-8-test-multilingual","question":"What is the last work of Dan Brown?", "keywords":"last work,  Dan Brown", "sparql":"PREFIX dbo: <http:\/\/dbpedia.org\/ontology\/> PREFIX dbp: <http:\/\/dbpedia.org\/property\/> PREFIX dbr: <http:\/\/dbpedia.org\/resource\/> SELECT ?book ?date WHERE { ?book dbo:author dbr:Dan_Brown . ?book dbp:releaseDate|dbo:publicationDate ?date } ORDER BY DESC(?date)" , "lang":"en"}
